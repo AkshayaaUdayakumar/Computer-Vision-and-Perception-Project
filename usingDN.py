@@ -55,7 +55,24 @@ while True:
     net.setInput(blob)
     output_layer_names = net.getLayerNames()
     output_names = [(output_layer_names[i - 1]) for i in net.getUnconnectedOutLayers()]
-    detections = net.forward(output_names)
+    #detections = net.forward(output_names)
+    vehicle_detections = []
+    for detection in detections:
+        for i in range(detection.shape[2]):
+            confidence = detection[0, 0, i, 2]
+            if confidence > 0.5:
+                class_id = int(detection[0, 0, i, 1])
+                if classes[class_id] in ["car", "truck", "bus"]:
+                    x = int(detection[0, 0, i, 3] * width)
+                    y = int(detection[0, 0, i, 4] * height)
+                    w = int(detection[0, 0, i, 5] * width)
+                    h = int(detection[0, 0, i, 6] * height)
+                    vehicle_detections.append((x, y, w, h))
+    
+    # Draw bounding boxes around detections
+    for x, y, w, h in vehicle_detections:
+        frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    
     height, width, channels = frame.shape
     vehicle_detections = []
     vehicle_detections = Processing(detections, frame)
