@@ -55,7 +55,7 @@ while True:
     net.setInput(blob)
     output_layer_names = net.getLayerNames()
     output_names = [(output_layer_names[i - 1]) for i in net.getUnconnectedOutLayers()]
-    #detections = net.forward(output_names)
+    detections = net.forward(output_names)
     #vehicle_detections = []
     #for detection in detections:
      #   for i in range(detection.shape[2]):
@@ -74,8 +74,8 @@ while True:
      #   frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
     
     #height, width, channels = frame.shape
-    #vehicle_detections = []
-    #vehicle_detections = Processing(detections, frame)
+    vehicle_detections = []
+    vehicle_detections = Processing(detections, frame)
     cv2.imshow("Video", frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
