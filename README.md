@@ -1,6 +1,8 @@
 # Vehicle Classification and Detection
 
 In this project, I have implemented 2 methodologies in classifying and detecting the vehicles in an given video frame. 
+Basically, To address the problem of the small object detection and the multi-scale variation of the object, the road surface area was defined as a remote area and a proximal area. The two road areas of each frame were sequentially detected to obtain good vehicle detection results in the monitoring field. here are the 2 methods I have used: 
+
 Method 1 uses just the image processing techniques
 1. Gaussian Mixture-based Background/Foreground Segmentation Algorithm 
 2. Morphological transformations (erosion followed by dilation)
